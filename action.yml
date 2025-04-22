@@ -1,0 +1,43 @@
+name: My veraPDF GitHub Action
+description: Composed GitHub Action to test PDF/UA compliance using veraPDF-cli
+
+# Define your inputs here.
+inputs:
+  pdf_file:
+    description: 'Input PDF file'
+    default: 'NULL'
+  addlogs:
+    description: 'Add logs to xml (mrr), json or html report'
+    default: false
+  format:
+    description: 'Output format'
+    default: 'xml'
+  flavour:
+    description: 'Validation Profile flavour'
+    default: '0'
+  loglevel:
+    description: 'Set log level'
+    default: 2
+  prefix:
+    description: 'Sets file name prefix for any fixed files'
+    default: 'veraFixMd_'
+  verbose:
+    description: 'Adds failed test information to text output'
+    default: false
+
+# Define your outputs here.
+outputs:
+  artifact_array:
+    description: 'JSON array of artifacts with details'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    PDF_FILE: ${{ inputs.pdf_file }}
+    ADDLOGS: ${{ inputs.addlogs }}
+    FORMAT: ${{ inputs.format }}
+    FLAVOUR: ${{ inputs.flavour }}
+    LOGLEVEL: ${{ inputs.loglevel }}
+    PREFIX: ${{ inputs.prefix }}
+    VERBOSE: ${{ inputs.verbose }}
